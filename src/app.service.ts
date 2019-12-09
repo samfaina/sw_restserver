@@ -4,8 +4,8 @@ import {
   ClientProxyFactory,
   Transport,
 } from '@nestjs/microservices';
-import { OperationDto } from './models/OperationDTO';
-import { Site } from './models/Site';
+// import { any } from './models/any';
+// import { Site } from './models/Site';
 
 // TODO: LOGGER
 @Injectable()
@@ -30,8 +30,8 @@ export class AppService {
     });
   }
 
-  async findAllSites(): Promise<Site[]> {
-    return this.client.send<Site[], any>('findAll', []).toPromise();
+  async findAllSites(): Promise<any[]> {
+    return this.client.send<any[], any>('findAll', []).toPromise();
     // let conn: PoolConnection;
     // return new Promise(async (resolve, reject) => {
     //   try {
@@ -57,8 +57,8 @@ export class AppService {
     // });
   }
 
-  async updateSite(site: Site): Promise<OperationDto> {
-    return this.client.send<OperationDto, Site>('updateSite', site).toPromise();
+  async updateSite(site: any): Promise<any> {
+    return this.client.send<any, any>('updateSite', site).toPromise();
     // let conn: PoolConnection;
     // return new Promise(async (resolve, reject) => {
     //   try {
@@ -88,8 +88,8 @@ export class AppService {
     // });
   }
 
-  async markAllAsReaded(): Promise<OperationDto> {
-    return this.client.send<OperationDto, any>('markAsRead', []).toPromise();
+  async markAllAsReaded(): Promise<any> {
+    return this.client.send<any, any>('markAsRead', []).toPromise();
     // let conn: PoolConnection;
     // return new Promise(async (resolve, reject) => {
     //   try {
@@ -107,8 +107,8 @@ export class AppService {
     // });
   }
 
-  async insertSite(site): Promise<OperationDto> {
-    return this.client.send<OperationDto, Site>('insertSite', site).toPromise();
+  async insertSite(site): Promise<any> {
+    return this.client.send<any, any>('insertSite', site).toPromise();
     // let conn;
     // return new Promise(async (resolve, reject) => {
     //   try {
@@ -126,8 +126,8 @@ export class AppService {
     // });
   }
 
-  async findSiteById(id: number | string): Promise<Site> {
-    return this.client.send<Site, number | string>('findById', id).toPromise();
+  async findSiteById(id: number | string): Promise<any> {
+    return this.client.send<any, number | string>('findById', id).toPromise();
     // let conn: PoolConnection;
     // return new Promise(async (resolve, reject) => {
     //   try {
@@ -147,10 +147,8 @@ export class AppService {
     // });
   }
 
-  async deleteSite(id: number | string): Promise<OperationDto> {
-    return this.client
-      .send<OperationDto, number | string>('deleteSite', id)
-      .toPromise();
+  async deleteSite(id: number | string): Promise<any> {
+    return this.client.send<any, number | string>('deleteSite', id).toPromise();
     // let conn: PoolConnection;
     // return new Promise(async (resolve, reject) => {
     //   try {

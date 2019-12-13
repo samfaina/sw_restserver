@@ -30,6 +30,16 @@ export class AuthService {
     }
   }
 
+  async validateUserTokenPayload(payload: any): Promise<boolean> {
+    try {
+      const user = await this.usersService.findOne(payload.username);
+      return Promise.resolve(Boolean(user));
+    } catch (error) {
+      this.logger.error(`Error validating user`, error);
+      throw new NotFoundException();
+    }
+  }
+
   async login(user: any) {
     const payload = { username: user.username, sub: user.userId };
     return {

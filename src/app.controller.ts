@@ -10,15 +10,15 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AppService } from './app.service';
 import { OperationDto } from './models/OperationDto';
 import { Site } from './models/Site';
 import { AuthService } from './modules/auth/auth.service';
+import { DatabaseService } from './modules/database/database.service';
 
 @Controller()
 export class AppController {
   constructor(
-    private readonly appService: AppService,
+    private readonly dbService: DatabaseService,
     private readonly authService: AuthService,
   ) {}
 
@@ -36,36 +36,36 @@ export class AppController {
   @UseGuards(AuthGuard('jwt'))
   @Get('items')
   async findAll(): Promise<Site[]> {
-    return this.appService.findAllSites();
+    return this.dbService.findAllSites();
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('item/:id')
   async findById(@Param('id') id): Promise<Site> {
-    return this.appService.findSiteById(id);
+    return this.dbService.findSiteById(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Patch('items')
   async markAllAsRead(): Promise<OperationDto> {
-    return this.appService.markAllAsReaded();
+    return this.dbService.markAllAsReaded();
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Put('item')
   async updateSite(@Body() site: Site): Promise<OperationDto> {
-    return this.appService.updateSite(site);
+    return this.dbService.updateSite(site);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('item')
   async insertSite(@Body() site: Site): Promise<OperationDto> {
-    return this.appService.insertSite(site);
+    return this.dbService.insertSite(site);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Delete('item/:id')
   async deleteSite(@Param('id') id): Promise<OperationDto> {
-    return this.appService.deleteSite(id);
+    return this.dbService.deleteSite(id);
   }
 }

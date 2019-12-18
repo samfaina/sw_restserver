@@ -18,7 +18,7 @@ export class DatabaseService {
       },
     });
 
-    this.events.token$.subscribe(data => this.emitSites(null));
+    this.events.token$.subscribe(() => this.emitSites(null));
   }
 
   async findAllSites(): Promise<Site[]> {

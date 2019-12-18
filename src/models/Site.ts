@@ -27,7 +27,7 @@ export class Site {
     this.watched = data.watched === 1;
     this.favorite = data.favorite === 1;
     this.chapter_last_published = data.chapter_last_published || '';
-    this.archived = data.favorite === 1;
+    this.archived = data.archived === 1;
     this.chapter_last_read = data.chapter_last_read || '';
     this.status = data.status || '';
     this.format_date = data.format_date || 'DD MMM YYYY';

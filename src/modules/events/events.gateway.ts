@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Server } from 'socket.io';
 import { WsJwtGuard } from './wsjwt.guard';
 
-@WebSocketGateway({ namespace: 'sitewatcher/v2' })
+@WebSocketGateway(3010)
 export class EventsGateway {
   @WebSocketServer()
   server: Server;

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Transport } from '@nestjs/common/enums/transport.enum';
 import { ClientProxy, ClientProxyFactory } from '@nestjs/microservices';
+import { SocketClientFactory } from 'src/utils/socket-client-factory/socket-client.factory';
 
 export type User = any;
 
@@ -8,15 +8,10 @@ export type User = any;
 export class UsersService {
   private client: ClientProxy;
 
-  // TODO persistence layer
-  constructor() {
-    this.client = ClientProxyFactory.create({
-      transport: Transport.TCP,
-      options: {
-        host: '127.0.0.1',
-        port: 8876,
-      },
-    });
+  constructor(private readonly socketFactory: SocketClientFactory) {
+    this.client = ClientProxyFactory.create(
+      this.socketFactory.createDBClient(),
+    );
   }
 
   async findOne(username: string): Promise<User | undefined> {

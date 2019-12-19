@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { Transport } from '@nestjs/common/enums/transport.enum';
 import { ClientProxy, ClientProxyFactory } from '@nestjs/microservices';
-import { OperationDto } from 'src/models/OperationDto';
-import { Site } from 'src/models/Site';
+import { SocketClientFactory } from 'src/utils/socket-client-factory/socket-client.factory';
 import { EventsGateway } from '../events/events.gateway';
+
+export type Site = any;
+export type OperationDto = any;
 
 @Injectable()
 export class DatabaseService {
   private client: ClientProxy;
 
-  constructor(private readonly events: EventsGateway) {
-    this.client = ClientProxyFactory.create({
-      transport: Transport.TCP,
-      options: {
-        host: '127.0.0.1',
-        port: 8876,
-      },
-    });
+  constructor(
+    private readonly events: EventsGateway,
+    private readonly socketFactory: SocketClientFactory,
+  ) {
+    this.client = ClientProxyFactory.create(
+      this.socketFactory.createDBClient(),
+    );
 
     this.events.token$.subscribe(() => this.emitSites(null));
   }

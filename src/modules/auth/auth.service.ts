@@ -14,8 +14,6 @@ export class AuthService {
   async validateUser(username: string, pass: string): Promise<any> {
     try {
       const user = await this.usersService.findOne(username);
-      this.logger.log(`TCL: AuthService -> user ${user.username}`);
-
       const match = await this.compare(pass, user.hash);
 
       if (match) {
@@ -45,10 +43,6 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
-  }
-
-  private async generateSaltAndHash(pwd: string, saltRounds: number = 10) {
-    return bcrypt.hash(pwd, saltRounds);
   }
 
   private async compare(pwd: string, hash: string) {

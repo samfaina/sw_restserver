@@ -10,10 +10,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { OperationDto } from './models/OperationDto';
-import { Site } from './models/Site';
 import { AuthService } from './modules/auth/auth.service';
-import { DatabaseService } from './modules/database/database.service';
+import {
+  DatabaseService,
+  OperationDto,
+  Site,
+} from './modules/database/database.service';
 
 @Controller()
 export class AppController {
